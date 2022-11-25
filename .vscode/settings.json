@@ -10,7 +10,7 @@
     "screenshots": true
   },
   "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "cSpell.words": [
     "Exts",
@@ -62,4 +62,8 @@
     "html"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
+  "i18next.i18nPaths": "/Users/ht/i18n-ally/locales,/Users/ht/i18n-ally/examples/by-features/100-locales/locales,/Users/ht/i18n-ally/examples/by-features/collections/locales,/Users/ht/i18n-ally/examples/by-features/custom-locales-path/lang,/Users/ht/i18n-ally/examples/by-features/demo/locales,/Users/ht/i18n-ally/examples/by-features/dir-locales/locales,/Users/ht/i18n-ally/examples/by-features/encoding/locales,/Users/ht/i18n-ally/examples/by-features/flatten-mode/lang,/Users/ht/i18n-ally/examples/by-features/extractions/locales,/Users/ht/i18n-ally/examples/by-features/js-parser/locales,/Users/ht/i18n-ally/examples/by-features/flatten-scope-conflict/lang,/Users/ht/i18n-ally/examples/by-features/js-parser-dir/locales,/Users/ht/i18n-ally/examples/by-features/json5/locales,/Users/ht/i18n-ally/examples/by-features/linked/locales,/Users/ht/i18n-ally/examples/by-features/tag-system-bcp47/locales,/Users/ht/i18n-ally/examples/by-features/yaml/locales,/Users/ht/i18n-ally/examples/by-frameworks/custom/locales,/Users/ht/i18n-ally/examples/by-frameworks/ember/locales,/Users/ht/i18n-ally/examples/by-frameworks/fluent-vue/i18n,/Users/ht/i18n-ally/examples/by-frameworks/fluent-vue-sfc/i18n,/Users/ht/i18n-ally/examples/by-frameworks/lingui-nextjs/locale,/Users/ht/i18n-ally/examples/by-frameworks/next-translate/locales,/Users/ht/i18n-ally/examples/by-frameworks/ngneat-transloco/i18n,/Users/ht/i18n-ally/examples/by-frameworks/non-i18n-project/locales,/Users/ht/i18n-ally/examples/by-frameworks/php-po/locale,/Users/ht/i18n-ally/examples/by-frameworks/vue-i18n/locales,/Users/ht/i18n-ally/examples/by-frameworks/vue-i18n-sfc/locales,/Users/ht/i18n-ally/examples/by-features/path-matcher/namespaces-locale/i18n,/Users/ht/i18n-ally/examples/by-features/path-matcher/locale-namespaces/i18n,/Users/ht/i18n-ally/examples/by-frameworks/flutter/assets/i18n,/Users/ht/i18n-ally/examples/by-frameworks/laravel/resources/lang,/Users/ht/i18n-ally/examples/by-frameworks/ngx-translate/src/i18n,/Users/ht/i18n-ally/examples/by-frameworks/react-i18next/public/locales,/Users/ht/i18n-ally/examples/by-frameworks/ruby-on-rails/config/locales,/Users/ht/i18n-ally/examples/by-frameworks/ui5/webapp/i18n,/Users/ht/i18n-ally/examples/by-features/module-style/modules/moduleB/locales,/Users/ht/i18n-ally/examples/by-features/module-style/modules/moduleA/locales,/Users/ht/i18n-ally/examples/by-frameworks/vuex-i18n/todo-demo/app/i18n,/Users/ht/i18n-ally/examples/by-features/module-style/modules/moduleC/nested/locales",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 }

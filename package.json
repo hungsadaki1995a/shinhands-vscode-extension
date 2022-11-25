@@ -1,20 +1,14 @@
 {
-  "publisher": "lokalise",
-  "name": "i18n-ally",
-  "version": "2.8.1",
-  "displayName": "i18n Ally",
-  "description": "🌍 All in one i18n extension for VS Code",
+  "publisher": "hao",
+  "name": "Topenland",
+  "version": "0.0.5",
+  "displayName": "Topenland",
+  "description": "Topenland support extension",
   "keywords": [
-    "vue",
-    "vue-i18n",
     "translate",
     "i18n",
     "i18next"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/lokalise/i18n-ally"
-  },
   "main": "./dist/extension",
   "scripts": {
     "release": "nr release:patch",
@@ -30,7 +24,7 @@
     "i18n:build": "esno scripts/build-i18n.ts",
     "i18n:dev": "nodemon -w ./locales -e json --exec \"nr i18n:build\"",
     "flags:build": "esno scripts/build-flags.ts",
-    "lint": "eslint --ext .ts,.js,.vue .",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "nr lint -- --fix",
     "test": "nr test:unit",
     "test:e2e": "rimraf test/e2e-out && tsc -p test/e2e && cross-env I18N_ALLY_ENV=test node ./test/e2e-out/index.js",
@@ -41,6 +35,8 @@
     "test:update": "cross-env CHAI_JEST_SNAPSHOT_UPDATE_ALL=true nr test:unit"
   },
   "dependencies": {
+    "eslint": "^7.13.0",
+    "eslint-loader": "3.0.3",
     "@babel/parser": "^7.15.3",
     "@babel/traverse": "^7.15.0",
     "bcp-47-normalize": "^2.0.1",
@@ -48,7 +44,7 @@
     "consolidate": "^0.16.0",
     "esm": "^3.2.25",
     "fast-glob": "^3.2.7",
-    "fluent-vue-cli": "^3.0.0-beta.19",
+    "fluent-vue-cli": "^3.0.4",
     "glob-gitignore": "^1.0.14",
     "htmlparser2": "^6.1.0",
     "iconv-lite": "^0.6.3",
@@ -74,7 +70,11 @@
     "yaml": "^1.10.2"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.7.0",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "@antfu/ni": "^0.7.0",
     "@antfu/utils": "^0.2.4",
     "@babel/types": "^7.15.0",
@@ -105,7 +105,6 @@
     "conventional-github-releaser": "^3.1.5",
     "cross-env": "^7.0.3",
     "diff": "^5.0.0",
-    "eslint": "^7.32.0",
     "esno": "^0.9.1",
     "fs-extra": "^10.0.0",
     "mocha": "^8.4.0",
@@ -165,9 +164,7 @@
     "onLanguage:ini",
     "onLanguage:svelte"
   ],
-  "icon": "res/logo.png",
-  "homepage": "https://github.com/lokalise/i18n-ally",
-  "bugs": "https://github.com/lokalise/i18n-ally/issues",
+  "icon": "assets/logo.png",
   "contributes": {
     "commands": [
       {
@@ -806,30 +803,11 @@
           "items": {
             "type": "string",
             "enum": [
-              "vue",
               "react",
               "vscode",
-              "ngx-translate",
               "i18next",
               "i18n-tag",
-              "flutter",
-              "vue-sfc",
-              "ember",
-              "chrome-ext",
-              "ruby-rails",
-              "custom",
-              "laravel",
-              "transloco",
-              "svelte",
-              "globalize",
-              "ui5",
-              "next-translate",
-              "php-gettext",
-              "general",
-              "lingui",
-              "jekyll",
-              "fluent-vue",
-              "fluent-vue-sfc"
+              "next-translate"
             ]
           },
           "description": "%config.enabled_frameworks%"
@@ -843,11 +821,7 @@
               "ts",
               "json",
               "json5",
-              "yaml",
-              "ini",
-              "po",
-              "php",
-              "properties"
+              "yaml"
             ]
           },
           "description": "%config.enabled_parsers%"
@@ -937,7 +911,7 @@
         },
         "i18n-ally.theme.annotationBorder": {
           "type": "string",
-          "defult": "rgba(153, 153, 153, .2)"
+          "defult": "red"
         },
         "i18n-ally.theme.annotationMissingBorder": {
           "type": "string",

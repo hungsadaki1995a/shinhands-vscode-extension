@@ -9,7 +9,8 @@ import i18n from '~/i18n'
 import editorModules from '~/editor'
 
 export async function activate(ctx: ExtensionContext) {
-  Log.info(`🈶 Activated, v${version}`)
+  Log.info(`Topenland Activated version v${version}`)
+  Log.info(`ExtensionPath, ${ctx.extensionPath}`)
 
   Config.ctx = ctx
 
@@ -31,7 +32,7 @@ export async function activate(ctx: ExtensionContext) {
 }
 
 export function deactivate() {
-  Log.info('🈚 Deactivated')
+  Log.info('Topenland extension deactivated')
 }
 
 export {

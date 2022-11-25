@@ -123,7 +123,7 @@ export class Config {
   }
 
   static get annotationMaxLength(): number {
-    return this.getConfig<number>('annotationMaxLength') || 40
+    return this.getConfig<number>('annotationMaxLength') || 200
   }
 
   static set annotationMaxLength(value: number) {
@@ -146,13 +146,8 @@ export class Config {
     return this.getConfig<string>('defaultNamespace')
   }
 
-  static get enabledFrameworks(): string[] | undefined {
-    let ids = this.getConfig<string | string[]>('enabledFrameworks')
-    if (!ids || !ids.length)
-      return undefined
-    if (typeof ids === 'string')
-      ids = [ids]
-    return ids
+  static get enabledFrameworks(): string[] {
+    return ['react', 'i18next', 'vscode', 'i18n-tag', 'next-translate']
   }
 
   static get enabledParsers(): string[] | undefined {

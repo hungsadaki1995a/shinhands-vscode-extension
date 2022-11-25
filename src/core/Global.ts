@@ -1,24 +1,24 @@
 import { extname, resolve } from 'path'
-import { workspace, commands, window, EventEmitter, Event, ExtensionContext, ConfigurationChangeEvent, TextDocument, WorkspaceFolder } from 'vscode'
+import { isMatch } from 'micromatch'
 import { uniq } from 'lodash'
 import { slash } from '@antfu/utils'
-import { isMatch } from 'micromatch'
-import { ParsePathMatcher } from '../utils/PathMatcher'
-import { EXT_NAMESPACE } from '../meta'
+import { commands, ConfigurationChangeEvent, Event, EventEmitter, ExtensionContext, TextDocument, window, workspace, WorkspaceFolder } from 'vscode'
 import { ConfigLocalesGuide } from '../commands/configLocalePaths'
-import { AvailableParsers, DefaultEnabledParsers } from '../parsers'
+import { getEnabledFrameworksByIds } from '../frameworks'
 import { Framework } from '../frameworks/base'
-import { getEnabledFrameworks, getEnabledFrameworksByIds, getPackageDependencies } from '../frameworks'
+import { EXT_NAMESPACE } from '../meta'
+import { AvailableParsers, DefaultEnabledParsers } from '../parsers'
 import { checkNotification } from '../update-notification'
-import { Reviews } from './Review'
-import { CurrentFile } from './CurrentFile'
-import { Config } from './Config'
-import { DirStructure, OptionalFeatures, KeyStyle } from './types'
-import { LocaleLoader } from './loaders/LocaleLoader'
+import { ParsePathMatcher } from '../utils/PathMatcher'
 import { Analyst } from './Analyst'
+import { Config } from './Config'
+import { CurrentFile } from './CurrentFile'
+import { LocaleLoader } from './loaders/LocaleLoader'
+import { Reviews } from './Review'
 import { Telemetry, TelemetryKey } from './Telemetry'
+import { DirStructure, KeyStyle, OptionalFeatures } from './types'
+import { getExtOfLanguageId, Log, normalizeUsageMatchRegex } from '~/utils'
 import i18n from '~/i18n'
-import { Log, getExtOfLanguageId, normalizeUsageMatchRegex } from '~/utils'
 import { DetectionResult } from '~/core/types'
 
 export class Global {
@@ -359,14 +359,8 @@ export class Global {
         Log.info('🔁 Reloading loader')
     }
 
-    if (!Config.enabledFrameworks) {
-      const packages = getPackageDependencies(this._rootpath)
-      this.enabledFrameworks = getEnabledFrameworks(packages, this._rootpath)
-    }
-    else {
-      const frameworks = Config.enabledFrameworks
-      this.enabledFrameworks = getEnabledFrameworksByIds(frameworks, this._rootpath)
-    }
+    const frameworks = Config.enabledFrameworks
+    this.enabledFrameworks = getEnabledFrameworksByIds(frameworks, this._rootpath)
     const isValidProject = this.enabledFrameworks.length > 0 && this.enabledParsers.length > 0
     const hasLocalesSet = !!Global.localesPaths
     const shouldEnabled = !Config.disabled && isValidProject && hasLocalesSet
@@ -386,7 +380,7 @@ export class Global {
     else {
       if (!Config.disabled) {
         if (!isValidProject && hasLocalesSet)
-          Log.info('⚠ Current workspace is not a valid project, extension disabled')
+          Log.info('Workspace không hợp lệ. Disable extension')
 
         if (isValidProject && !hasLocalesSet && Config.autoDetection)
           ConfigLocalesGuide.autoSet()
