@@ -1,9 +1,9 @@
 {
   "publisher": "hao",
-  "name": "Topenland",
+  "name": "ShinhanDS",
   "version": "0.0.5",
-  "displayName": "Topenland",
-  "description": "Topenland support extension",
+  "displayName": "ShinhanDS",
+  "description": "ShinhanDS support extension",
   "keywords": [
     "translate",
     "i18n",
