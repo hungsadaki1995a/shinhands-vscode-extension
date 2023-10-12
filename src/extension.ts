@@ -34,27 +34,34 @@ export function activate(context: ExtensionContext) {
     const documentText = document.getText();
     let matchs = [];
     let match;
-    let pattern = /'(.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣.?])'|"(.*[ㄱ-ㅎ|ㅏ-ㅣ|가-힣.?])"/g;
+    // \u3131-\u314e  Matches a character in the range "ㄱ" to "ㅎ" (char code 12593 to 12622). Case sensitive.
+    // \u314f-\u3163  Matches a character in the range "ㅏ" to "ㅣ" (char code 12623 to 12643). Case sensitive.
+    // \uac00-\ud7a3  Matches a character in the range "가" to "힣" (char code 44032 to 55203). Case sensitive.
+    let koreanCharacterPattern = "\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3";
+    let pattern =
+      /(?=.*[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3])['">][\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3|\sID.?,/\dIP:]+['"<]/g;
     while ((match = pattern.exec(documentText))) {
       const string = match[0];
       const startPos = editor.document.positionAt(match.index);
       const endPos = editor.document.positionAt(match.index + string.length);
       const textTranslate = translateText(string.replace(/["']/g, ""));
-      const decoration = {
-        range: new Range(startPos, endPos),
-        renderOptions: {
-          after: {
-            color: "rgba(26,26,26)",
-            contentText: textTranslate,
-            fontStyle: "normal",
-            border: `0.5px solid white; border-radius: 2px;`,
-            fontWeight: "bold",
-            backgroundColor: "white",
-            margin: "5px",
+      if (textTranslate) {
+        const decoration = {
+          range: new Range(startPos, endPos),
+          renderOptions: {
+            after: {
+              color: "rgba(26,26,26)",
+              contentText: textTranslate,
+              fontStyle: "normal",
+              border: `0.5px solid white; border-radius: 2px;`,
+              fontWeight: "bold",
+              backgroundColor: "white",
+              margin: "5px",
+            },
           },
-        },
-      };
-      matchs.push(decoration);
+        };
+        matchs.push(decoration);
+      }
     }
     editor.setDecorations(decoration, matchs);
   };
