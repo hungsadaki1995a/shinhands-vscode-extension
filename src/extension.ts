@@ -17,6 +17,7 @@ import {
   commands,
   ExtensionContext,
 } from "vscode";
+import { isTextValid } from "./utils/format";
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -26,7 +27,7 @@ export function activate(context: ExtensionContext) {
 
   const decoration = window.createTextEditorDecorationType({});
 
-  const updateDecorations = () => {
+  const updateDecorations = async () => {
     if (!editor || !editor.document) {
       return;
     }
@@ -39,12 +40,17 @@ export function activate(context: ExtensionContext) {
     // \uac00-\ud7a3  Matches a character in the range "가" to "힣" (char code 44032 to 55203). Case sensitive.
     let koreanCharacterPattern = "\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3";
     let pattern =
-      /(?=.*[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3])['">][\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3|\sID.?,/\dIP:]+['"<]/g;
+      /(?=.*[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3])['">\\r\\n\s][\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3|\s.?,/\dIP:]+['"<\\r\\n\s]/g;
     while ((match = pattern.exec(documentText))) {
       const string = match[0];
       const startPos = editor.document.positionAt(match.index);
-      const endPos = editor.document.positionAt(match.index + string.length);
-      const textTranslate = translateText(string.replace(/["']/g, ""));
+      const endPos = editor.document.positionAt(
+        match.index + string.replace("<", "").trimEnd().length
+      );
+      if (!isTextValid(string)) {
+        continue;
+      }
+      const textTranslate = await translateText(string.replace(/["']/g, ""));
       if (textTranslate) {
         const decoration = {
           range: new Range(startPos, endPos),
