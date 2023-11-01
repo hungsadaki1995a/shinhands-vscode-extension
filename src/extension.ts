@@ -40,7 +40,7 @@ export function activate(context: ExtensionContext) {
     // \uac00-\ud7a3  Matches a character in the range "가" to "힣" (char code 44032 to 55203). Case sensitive.
     let koreanCharacterPattern = "\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3";
     let pattern =
-      /(?=.*[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3])['">\\r\\n\s][\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3|\s.?,/\dIP:]+['"<\\r\\n\s]/g;
+      /(?=.*[\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3])['">\\r\\n\s][\u3131-\u314e|\u314f-\u3163|\uac00-\ud7a3|\sID.?,/\dIP:]+['"<\\r\\n\s]/g;
     while ((match = pattern.exec(documentText))) {
       const string = match[0];
       const startPos = editor.document.positionAt(match.index);

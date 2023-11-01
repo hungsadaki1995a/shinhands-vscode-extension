@@ -3,11 +3,25 @@ export const isTextValid = (string: string): boolean => {
     return false;
   }
 
-  if (/[a-zA-Z]/.test(string)) {
-    return false;
+  if (/[a-zA-Z\d]/.test(string)) {
+    if (!string.includes("ID") && !string.includes("IP")) {
+      return false;
+    }
   }
 
   if (string.includes("||")) {
+    return false;
+  }
+
+  if (string.includes(" | ")) {
+    return false;
+  }
+
+  if (string.includes(" ? ")) {
+    return false;
+  }
+
+  if (string.includes(",")) {
     return false;
   }
 
